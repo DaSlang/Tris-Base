@@ -35,11 +35,10 @@ public class ModelloTabellaTris extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Griglia griglia = (Griglia) Applicazione.getInstance().getModello().getBean(Costanti.MODELLO_GRIGLIA);
-        if (griglia.getStatoCella(rowIndex, columnIndex) == Costanti.STATO_X) {
+        if (this.griglia.getStatoCella(rowIndex, columnIndex) == Costanti.STATO_X) {
             return this.immagineX;
         }
-        if (griglia.getStatoCella(rowIndex, columnIndex) == Costanti.STATO_O) {
+        if (this.griglia.getStatoCella(rowIndex, columnIndex) == Costanti.STATO_O) {
             return this.immagineO;
         }
         return null;
