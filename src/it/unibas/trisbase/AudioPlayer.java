@@ -19,6 +19,7 @@ public class AudioPlayer {
             clip.start();
         } catch (Exception e) {
             logger.error(resManager.getStringaFromBundle(Costanti.STR_ECCEZIONE_AUDIO) + "\n" + e.getMessage());
+            Applicazione.getInstance().getFrame().mostraMessaggioErrore(resManager.getStringaFromBundle(Costanti.STR_ECCEZIONE_AUDIO));
         }
     }
 

@@ -3,16 +3,17 @@ package it.unibas.trisbase.vista;
 import it.unibas.trisbase.Applicazione;
 import it.unibas.trisbase.Costanti;
 import it.unibas.trisbase.controllo.ControlloPrincipale;
+import it.unibas.trisbase.modello.Griglia;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import javax.swing.table.TableModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,7 @@ public class VistaPrincipale extends JPanel {
     
     private JTable tabellaGriglia;
     private JLabel consiglio;
+    private ModelloTabellaTris modelloTabellaTris;
     
     public void inizializza() {
         this.setLayout(new BorderLayout());
@@ -50,7 +52,11 @@ public class VistaPrincipale extends JPanel {
     }
     
     private void setTabella() {
-        this.tabellaGriglia = new JTable(new ModelloTabellaTris());
+        Griglia griglia = (Griglia) Applicazione.getInstance().getModello().getBean(Costanti.MODELLO_GRIGLIA);
+        ImageIcon immagineX = Applicazione.getInstance().getResourceManager().caricaImmagine(Costanti.PATH_IMMAGINE_X);
+        ImageIcon immagineO = Applicazione.getInstance().getResourceManager().caricaImmagine(Costanti.PATH_IMMAGINE_O);
+        this.modelloTabellaTris = new ModelloTabellaTris(griglia, immagineX, immagineO);
+        this.tabellaGriglia = new JTable(this.modelloTabellaTris);
         this.tabellaGriglia.setRowHeight(133);
         this.tabellaGriglia.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.tabellaGriglia.setCellSelectionEnabled(true);
@@ -82,8 +88,7 @@ public class VistaPrincipale extends JPanel {
     }
     
     public void aggiornaTabella() {
-        ModelloTabellaTris modello = (ModelloTabellaTris) this.tabellaGriglia.getModel();
-        modello.aggiornaTabella();
+        this.modelloTabellaTris.aggiornaTabella();
     }
     
     public void setBackgroundTabella(Color colore) {

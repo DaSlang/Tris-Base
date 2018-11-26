@@ -3,6 +3,7 @@ package it.unibas.trisbase.vista;
 import it.unibas.trisbase.Applicazione;
 import it.unibas.trisbase.Costanti;
 import it.unibas.trisbase.ResourceManager;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,10 @@ public class Frame extends javax.swing.JFrame {
         this.itemNuovaPartita.setAction(Applicazione.getInstance().getControlloMenu().getAzioneNuovoMatch());
         this.itemInterrompiPartita.setAction(Applicazione.getInstance().getControlloMenu().getAzioneInterrompiMatch());
         this.itemEsci.setAction(Applicazione.getInstance().getControlloMenu().getAzioneEsci());
+    }
+    
+    public void mostraMessaggioErrore(String messaggio) {
+        JOptionPane.showMessageDialog(this, messaggio, "Errore", JOptionPane.ERROR_MESSAGE);
     }
 
     @SuppressWarnings("unchecked")

@@ -7,17 +7,25 @@ import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 public class ModelloTabellaTris extends AbstractTableModel {
+    
+    private Griglia griglia;
+    private ImageIcon immagineX;
+    private ImageIcon immagineO;
 
+    public ModelloTabellaTris(Griglia griglia, ImageIcon immagineX, ImageIcon immagineO) {
+        this.griglia = griglia;
+        this.immagineX = immagineX;
+        this.immagineO = immagineO;
+    }
+    
     @Override
     public int getRowCount() {
-        Griglia griglia = (Griglia) Applicazione.getInstance().getModello().getBean(Costanti.MODELLO_GRIGLIA);
-        return griglia.getDimensione();
+        return this.griglia.getDimensione();
     }
 
     @Override
     public int getColumnCount() {
-        Griglia griglia = (Griglia) Applicazione.getInstance().getModello().getBean(Costanti.MODELLO_GRIGLIA);
-        return griglia.getDimensione();
+        return this.griglia.getDimensione();
     }
 
     @Override
@@ -29,10 +37,10 @@ public class ModelloTabellaTris extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Griglia griglia = (Griglia) Applicazione.getInstance().getModello().getBean(Costanti.MODELLO_GRIGLIA);
         if (griglia.getStatoCella(rowIndex, columnIndex) == Costanti.STATO_X) {
-            return Applicazione.getInstance().getResourceManager().caricaImmagine(Costanti.PATH_IMMAGINE_X);
+            return this.immagineX;
         }
         if (griglia.getStatoCella(rowIndex, columnIndex) == Costanti.STATO_O) {
-            return Applicazione.getInstance().getResourceManager().caricaImmagine(Costanti.PATH_IMMAGINE_O);
+            return this.immagineO;
         }
         return null;
     }
